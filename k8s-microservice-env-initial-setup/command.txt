@@ -1,0 +1,103 @@
+ElasticSearch Database and kibana
+=======================================================================================
+## Create a folder in /home/das/Documents/myCmds/elasticsearch/data
+## to save elasticsearch data and change the #path.data in elasticsearch.yaml
+				or
+#keep it default in elasticsearch.yaml. Data will be saved to 
+#/home/das/Documents/myLibs/elasticsearch-6.2.2/data
+
+##START elasticsearch & kibana in local(bare metal) , I prefer this for better maintenance
+
+$ /home/das/elk.sh
+	#!/bin/bash
+	export JAVA_HOME=/home/das/Documents/myLibs/jdk1.8.0_151;
+	export PATH=${JAVA_HOME}/bin:${PATH};
+	/home/das/Documents/myLibs/elasticsearch-6.2.2/bin/elasticsearch &
+	/home/das/Documents/myLibs/kibana-6.2.2-linux-x86_64/bin/kibana &
+	
+# Check if elasticsearch is UP
+http://localhost:9200/
+#Kibana
+#http://localhost:5601/app/kibana#/home?_g=()
+
+
+# start kibana in k8s - SOME ISSUE CHECK
+kubectl apply -f /home/das/git/k8s-microservice-env-initial-setup/k8s-microservice-env-initial-setup/kibana/kibana.yaml
+http://192.168.99.100:32601/
+#Get POD logs
+k logs <pod name>
+
+	
+Start Minikube or GKE
+=======================================================================================	
+minikube --memory 4000 --cpus 1 start
+
+## For GKE
+35.185.192.24 
+https://console.cloud.google.com/kubernetes/list?project=learn-kubernetes-ddas55&pli=1
+gcloud container clusters create dd --num-nodes 2 --machine-type g1-small
+gcloud container clusters get-credentials dd
+
+gcloud compute firewall-rules create svc-simpleboot-rule --allow=tcp:12017
+k get po -o wide
+kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type=="ExternalIP")].address
+
+
+CREATE configmap in Minikube
+=======================================================================================	
+kubectl create configmap cm-kub-brandssource-service \
+--from-file=/home/das/git/kub-brandsSource-service/kub-brandsSource-service/src/main/resources/application.properties
+
+kubectl get configmap cm-kub-brandssource-service  -o yaml
+
+# Replace created configMap
+kubectl create configmap cm-kub-brandssource-service \
+--from-file=/home/das/git/kub-brandsSource-service/kub-brandsSource-service/src/main/resources/application.properties -o yaml --dry-run | kubectl replace -f -
+
+
+
+Jenkins inside Tomcat
+=======================================================================================
+export JAVA_HOME=/home/das/Documents/myLibs/jdk1.8.0_151;
+export PATH=${JAVA_HOME}/bin:${PATH};
+/home/das/Documents/myLibs/apache-tomcat-9.0.8/bin/startup.sh
+#/home/das/Documents/myLibs/apache-tomcat-9.0.8/bin/shutdown.sh 
+# http://localhost:8888/jenkins
+
+Start fluentd
+=======================================================================================
+# start fluentd In jenkins
+Run the job - kub-common-infrastructure
+
+# start fluentd - Manual from command line
+kubectl apply -f /home/das/git/k8s-microservice-env-initial-setup/k8s-microservice-env-initial-setup/fluentd/fluentd-sa.yml
+kubectl apply -f /home/das/git/k8s-microservice-env-initial-setup/k8s-microservice-env-initial-setup/fluentd/fluentd-ds.yml
+#Note - If elasticsearch running in localhost m/c and fluentd running in minikube then use name:  FLUENT_ELASTICSEARCH_HOST
+# value: "10.0.2.2 . If elasticsearch running in bare metal and k8s cluster is NOT minikube try to provide elasticsearch
+# IP in field - FLUENT_ELASTICSEARCH_HOST
+
+
+
+
+
+
+
+
+
+
+
+
+#Create
+cd /home/das/Documents/myCmds/myKubernetes/boot-fluentd-elasticsearch-kibana
+k apply -f /home/das/Documents/myCmds/eclipseWorkspace/spring-cloud/kub-cm-mongo-flk-producer/src/main/resources/myrunCmds/elasticsearch/es-config.yml
+k apply -f /home/das/Documents/myCmds/eclipseWorkspace/spring-cloud/kub-cm-mongo-flk-producer/src/main/resources/myrunCmds/elasticsearch/es-logging.yml
+#Note - If Kibana and elasticsearch running in localhost m/c and running the k8s in minikube then use name:  FLUENT_ELASTICSEARCH_HOST
+# value: "10.0.2.2"
+  
+k apply -f /home/das/Documents/myCmds/eclipseWorkspace/spring-cloud/kub-cm-mongo-flk-producer/src/main/resources/myrunCmds/elasticsearch/kibana-logging.yml
+k apply -f /home/das/Documents/myCmds/eclipseWorkspace/spring-cloud/kub-cm-mongo-flk-producer/src/main/resources/myrunCmds/kibana/kibana.yaml
+
+#Stop ELK in local
+ps -af | grep kibana*
+ps -af | grep elasticsearch
+ps -af | grep logstash
