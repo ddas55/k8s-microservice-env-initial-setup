@@ -1,3 +1,10 @@
+Start Docker
+=======================================================================================
+sudo -i
+systemctl stop docker
+nohup sudo dockerd -H unix:///var/run/docker.sock -H tcp://127.0.0.1:2375 &
+
+
 ElasticSearch Database and kibana
 =======================================================================================
 ## Create a folder in /home/das/Documents/myCmds/elasticsearch/data
