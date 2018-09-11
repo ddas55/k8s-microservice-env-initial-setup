@@ -61,13 +61,18 @@ Jenkins inside Tomcat
 export JAVA_HOME=/home/das/Documents/myLibs/jdk1.8.0_151;
 export PATH=${JAVA_HOME}/bin:${PATH};
 /home/das/Documents/myLibs/apache-tomcat-9.0.8/bin/startup.sh
+
 #/home/das/Documents/myLibs/apache-tomcat-9.0.8/bin/shutdown.sh 
 # http://localhost:8888/jenkins
 
-Start fluentd
+Start fluentd , zipkin
 =======================================================================================
 # start fluentd In jenkins
 Run the job - kub-common-infrastructure
+# start zipkin In jenkins
+Run the job - kub-common-infrastructure
+# kubectl get svc zipkin-collector
+# http://192.168.99.100:32323/
 
 # start fluentd - Manual from command line
 kubectl apply -f /home/das/git/k8s-microservice-env-initial-setup/k8s-microservice-env-initial-setup/fluentd/fluentd-sa.yml
