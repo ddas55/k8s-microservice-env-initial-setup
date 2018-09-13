@@ -10,6 +10,11 @@ export JAVA_HOME=/home/das/Documents/myLibs/jdk1.8.0_151
 export PATH=${JAVA_HOME}/bin:${PATH}
 java -jar /home/das/Documents/myLibs/zipkin/zipkin-server-2.11.5-exec.jar
 
+Start prometheus time-series database in bare metal
+=======================================================================================
+export JAVA_HOME=/home/das/Documents/myLibs/jdk1.8.0_151
+export PATH=${JAVA_HOME}/bin:${PATH}
+/home/das/Documents/myLibs/prometheus-2.2.1.linux-amd64/myprometheus.sh
 
 ElasticSearch Database and kibana
 =======================================================================================
