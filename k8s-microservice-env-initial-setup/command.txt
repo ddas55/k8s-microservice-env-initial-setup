@@ -15,6 +15,7 @@ Start prometheus time-series database in bare metal
 export JAVA_HOME=/home/das/Documents/myLibs/jdk1.8.0_151
 export PATH=${JAVA_HOME}/bin:${PATH}
 /home/das/Documents/myLibs/prometheus-2.2.1.linux-amd64/myprometheus.sh
+# By default Prometheus will listen in port 9090
 
 ElasticSearch Database and kibana
 =======================================================================================
@@ -49,6 +50,7 @@ k logs <pod name>
 Start Minikube or GKE
 =======================================================================================	
 minikube --memory 4000 --cpus 1 start
+#http://192.168.99.100:30000/#!/overview?namespace=default
 
 ## For GKE
 35.185.192.24 
@@ -100,9 +102,12 @@ kubectl apply -f /home/das/git/k8s-microservice-env-initial-setup/k8s-microservi
 # IP in field - FLUENT_ELASTICSEARCH_HOST
 
 
-
-
-
+Start Grafana
+=======================================================================================
+# start Grafana In jenkins
+Run the job - kub-common-infrastructure
+kubectl apply -f /home/das/git/k8s-microservice-env-initial-setup/k8s-microservice-env-initial-setup/grafana/dp-grafana.yaml
+kubectl apply -f /home/das/git/k8s-microservice-env-initial-setup/k8s-microservice-env-initial-setup/grafana/svc-grafana.yaml
 
 
 
