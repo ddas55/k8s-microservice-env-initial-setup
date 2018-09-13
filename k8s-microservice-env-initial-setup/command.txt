@@ -4,6 +4,12 @@ sudo -i
 systemctl stop docker
 nohup sudo dockerd -H unix:///var/run/docker.sock -H tcp://127.0.0.1:2375 &
 
+Start zipkin in bare metal
+=======================================================================================
+export JAVA_HOME=/home/das/Documents/myLibs/jdk1.8.0_151
+export PATH=${JAVA_HOME}/bin:${PATH}
+java -jar /home/das/Documents/myLibs/zipkin/zipkin-server-2.11.5-exec.jar
+
 
 ElasticSearch Database and kibana
 =======================================================================================
