@@ -108,7 +108,8 @@ Start Grafana
 Run the job - kub-common-infrastructure
 kubectl apply -f /home/das/git/k8s-microservice-env-initial-setup/k8s-microservice-env-initial-setup/grafana/dp-grafana.yaml
 kubectl apply -f /home/das/git/k8s-microservice-env-initial-setup/k8s-microservice-env-initial-setup/grafana/svc-grafana.yaml
-
+#http://192.168.99.100:30102
+#userid/pwd - admin/admin
 
 
 
