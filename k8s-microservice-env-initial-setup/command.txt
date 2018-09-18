@@ -133,6 +133,9 @@ export PATH=${JAVA_HOME}/bin:${PATH};
 #/home/das/Documents/myLibs/apache-tomcat-9.0.8/bin/shutdown.sh 
 # http://localhost:8888/jenkins
 
+	
+
+
 Start fluentd , zipkin
 =======================================================================================
 # start fluentd In jenkins
@@ -152,12 +155,22 @@ kubectl apply -f /home/das/git/k8s-microservice-env-initial-setup/k8s-microservi
 
 Start Grafana
 =======================================================================================
-# start Grafana In jenkins
+## start Grafana In jenkins
 Run the job - kub-common-infrastructure
 kubectl apply -f /home/das/git/k8s-microservice-env-initial-setup/k8s-microservice-env-initial-setup/grafana/dp-grafana.yaml
 kubectl apply -f /home/das/git/k8s-microservice-env-initial-setup/k8s-microservice-env-initial-setup/grafana/svc-grafana.yaml
-#http://192.168.99.100:30102
+#http://192.168.99.100:32605
 #userid/pwd - admin/admin
+
+## Set Database point to prometheus
+Setting --> Data Sources
+Name-Prometheus
+Type-Prometheus
+#HTTP
+#If Grafana is running inside minikube provide the url ( http://10.0.2.2:9090) else
+#directlot point to host where Prometheus is running
+URL-http://10.0.2.2:9090
+Access-Default
 
 
 
