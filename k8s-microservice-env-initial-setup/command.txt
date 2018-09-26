@@ -152,6 +152,8 @@ kubectl create secret generic scrt-mongodb-access \
 --from-file=/home/das/git/k8s-microservice-env-initial-setup/k8s-microservice-env-initial-setup/secret/mongodb-secret.txt
 kubectl get secret scrt-mongodb-access -o yaml
 echo "c3ByaW5nLmRhdGEubW9uZ29kYi5ob3N0PTU0LjcwLjIxMC4yMTIKc3ByaW5nLmRhdGEubW9uZ29kYi5wb3J0PTEyMDE3CnNwcmluZy5kYXRhLm1vbmdvZGIudXNlcm5hbWU9ZGRhcwpzcHJpbmcuZGF0YS5tb25nb2RiLnBhc3N3b3JkPUd1bnRpQDE2T2N0MjAwNQpzcHJpbmcuZGF0YS5tb25nb2RiLmRhdGFiYXNlPUNsaXN0" |base64 --decode
+##From yaml
+kubectl apply -f /home/das/git/k8s-microservice-env-initial-setup/k8s-microservice-env-initial-setup/secret/secret.yaml
 
 
 Jenkins inside Tomcat
