@@ -1,3 +1,35 @@
+Install and start SonarQcube
+=======================================================================================
+https://www.sonarqube.org/downloads/
+/home/das/Documents/myLibs/sonarqube-6.7.5/bin/linux-x86-64/sonar.sh start
+http://localhost:9000/
+login - admin/admin
+##Setup the jenkins url , Administration > General Settings > Webhooks.
+#http://localhost:9000/admin/settings?category=webhooks
+
+##Configure your SonarQube server(s)
+#Log into Jenkins as an administrator and go to Manage Jenkins > Configure System: 
+#Scroll down to the SonarQube configuration section, click on Add SonarQube, 
+#and add the values you're prompted for.
+
+##To set global permissions, log in as a System administrator and go to 
+#Administration > Security > Global Permissions. 
+
+##Token
+#Each user has the ability to generate tokens that can be used to run analyses or invoke 
+#web services without access to the user's actual credentials. 
+##How to Generate a Token
+#To generate a token, to go User > My Account > Security. Your existing tokens are listed here, each with a Revoke button.
+#The form at the bottom of the page allows you to generate new tokens. Once you click the generate button, 
+#you will see the token value. Copy it immediately; once you dismiss the notification you will not be able to retrieve it.
+##How to Use a Token
+#User tokens have to be used as a replacement of your usual login:
+#when running analyses on your code: replace your login by the token in the sonar.login property. 
+#when invoking web services: just pass the token instead of your login while doing the basic authentication.
+#In both cases, you don't need to provide a password (so when running analyses on your code, the property sonar.password is optional).
+
+
+
 Start Docker
 =======================================================================================
 sudo -i
@@ -137,13 +169,13 @@ kubectl get --raw "/apis/metrics.k8s.io/v1beta1/nodes" | jq
 
 CREATE configmap in Minikube
 =======================================================================================	
-kubectl create configmap cm-kub-brandssource-service \
+kubectl create configmap cm-kub-brandssource-app \
 --from-file=/home/das/git/kub-brandsSource-service-boot2/kub-brandsSource-service-boot2/src/main/resources/application.properties
 
-kubectl get configmap cm-kub-brandssource-service  -o yaml
+kubectl get configmap cm-kub-brandssource-app  -o yaml
 
 # Replace created configMap
-kubectl create configmap cm-kub-brandssource-service \
+kubectl create configmap cm-kub-brandssource-app \
 --from-file=/home/das/git/kub-brandsSource-service-boot2/kub-brandsSource-service-boot2/src/main/resources/application.properties -o yaml --dry-run | kubectl replace -f -
 
 ##Bootstrap
@@ -177,6 +209,8 @@ export PATH=${JAVA_HOME}/bin:${PATH};
 
 #/home/das/Documents/myLibs/apache-tomcat-9.0.8/bin/shutdown.sh 
 # http://localhost:8888/jenkins
+#Jenkins initail admin password id in /home/das/.jenkins/secrets/initialAdminPassword
+#93bef33e49c24042ac0c13084b9ada1c
 
 	
 
